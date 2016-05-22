@@ -39,7 +39,8 @@ to setup
   ;; __clear-all-and-reset-ticks should be replaced with clear-all at
   ;; the beginning of your setup procedure and reset-ticks at the end
   ;; of the procedure.)
-  __clear-all-and-reset-ticks
+  ;;__clear-all-and-reset-ticks
+  clear-all
   ask patches [ set pcolor 39 ]   ;; set background color
   setup-nodes
   setup-edges
@@ -47,6 +48,7 @@ to setup
   set crtb1-ko-status false
   set brp-ko-status false
   set bop-ko-status false
+  reset-ticks
 end
 
 
@@ -200,7 +202,7 @@ end
 
 to reposition  ;; edge procedure
   ;; turn off display while positioning edge
-  no-display
+  ;;no-display
 
   ;; edge starting point
   setxy ([xcor] of from) ([ycor] of from)
@@ -209,13 +211,13 @@ to reposition  ;; edge procedure
   if distance into = 0 [ask into [fd 1]]
 
   ;; set edge heading
-  set heading towards-nowrap into
+  ;;set heading towards-nowrap into
 
   ;; set edge size
-  set size distance-nowrap into - ([size] of into / 2)
+  ;;set size distance-nowrap into - ([size] of into / 2)
 
   ;; definte edge parts
-  jump (distance-nowrap into) / 2
+  ;;jump (distance-nowrap into) / 2
   ask edge-heads with [parent-edge = myself] [die]
   ask edge-bodies with [parent-edge = myself] [die]
   hatch-edge-heads 1 [
@@ -244,30 +246,30 @@ end
 to update-nodes
   ask nodes with [ name = "light" ] [ set amount light-amount ]
   ask nodes with [ name = "oxygen" ] [ set amount oxygen-amount ]
-  wait .1 ;; put in artificial delay
+  ;;wait .1 ;; put in artificial delay
   ask nodes with [ name = "bat" ] [ ifelse knockedout? = true [ set amount 0 ]
                                   [ set amount (((100 - oxygen-amount) * (light-amount + 20)) / 100) ]]
-  wait .07
+  ;;wait .07
   ask nodes with [ name = "crtb1" or name = "brp" or name = "bop" ] [ ifelse knockedout? = true [ set amount 0 ]
                                                                     [ set amount ([amount] of turtle 2)]]
 
   ask nodes with [ name = "geranylGeranylPP" ] [ set amount 100 ]
   set catalytic-amount1 ((([amount] of turtle 3) / 100) * ([amount] of turtle 6))
-  wait .04
+  ;;wait .04
   ask nodes with [ name = "phytoene" ] [ ifelse knockedout? = true [ set amount 0 ]
                                        [ set amount catalytic-amount1
                                          ask turtle 6 [ set amount (amount - catalytic-amount1) ]]]
-  wait .02
+  ;; wiat .02
   ask nodes with [ name = "lycopene" ] [ ifelse knockedout? = true [ set amount 0 ]
                                        [ set amount catalytic-amount1 ]]
-  wait .01
+  ;; wiat .01
   ask nodes with [ name = "betaCarotene" ] [ ifelse knockedout? = true [ set amount 0 ]
                                            [ set amount catalytic-amount1 ]]
   set catalytic-amount2 ((([amount] of turtle 4) / 100) * ([amount] of turtle 9))
-  wait .01
+  ;; wiat .01
   ask nodes with [ name = "retinal" ] [ ifelse knockedout? = true [ set amount 0 ]
                                       [ set amount catalytic-amount2 ]]
-  wait .02
+  ;; wiat .02
   ask nodes with [ name = "bacterioRhodopsin" ] [ ifelse knockedout? = true [set amount 0 ] [
                                          ifelse ([amount] of turtle 5) > ([amount] of turtle 10)
                                          [ set amount [amount] of turtle 10 ]
