@@ -10,10 +10,10 @@
 
 ;; ***** VARIABLE DECLARATIONS *****
 
-breed [ nodes ]
-breed [ edges ]
-breed [ edge-heads ]
-breed [ edge-bodies ]
+breed [nodes nodeSingle]
+breed [edges edge]
+breed [edge-heads edge-head]
+breed [edge-bodies edge-body]
 
 
 globals
